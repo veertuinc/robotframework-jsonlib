@@ -82,6 +82,34 @@ TestConvertJSONToString
     ${json_str}=    Convert Json To String    ${json_obj_input}
     Should Be String    ${json_str}
 
+TestEnsureAsciiDefault
+    [Documentation]  Test that ensure_ascii=True by default (escapes non-ASCII)
+    ${json_obj}=    Create Dictionary    test=über
+    ${json_str}=    Convert Json To String    ${json_obj}
+    Should Contain    ${json_str}    \\u00fc
+    Should Not Contain    ${json_str}    über
+
+TestEnsureAsciiTrue
+    [Documentation]  Test that ensure_ascii=True explicitly escapes non-ASCII
+    ${json_obj}=    Create Dictionary    test=café    greeting=你好
+    ${json_str}=    Convert Json To String    ${json_obj}    ensure_ascii=True
+    Should Contain    ${json_str}    \\u
+    Should Not Contain    ${json_str}    café
+
+TestEnsureAsciiFalse
+    [Documentation]  Test that ensure_ascii=False preserves UTF-8 characters
+    ${json_obj}=    Create Dictionary    test=über    greeting=你好    coffee=café
+    ${json_str}=    Convert Json To String    ${json_obj}    ensure_ascii=False
+    Should Contain    ${json_str}    über
+    Should Contain    ${json_str}    你好
+    Should Contain    ${json_str}    café
+
+TestEnsureAsciiFalseWithIndent
+    [Documentation]  Test that ensure_ascii=False works with indent
+    ${json_obj}=    Create Dictionary    test=über
+    ${json_str}=    Convert Json To String    ${json_obj}    indent=${4}    ensure_ascii=False
+    Should Contain    ${json_str}    über
+
 TestDumpJSONToFile
     [Documentation]    Dumps Json to file
     Dump Json to file    ${TEMPDIR}/sample_dump.json    ${json_obj_input}

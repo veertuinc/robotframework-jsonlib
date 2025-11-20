@@ -202,7 +202,7 @@ class JSONLib:
         return json_object_cpy
 
     @staticmethod
-    def convert_json_to_string(json_object, indent=None):
+    def convert_json_to_string(json_object, indent=None, ensure_ascii=True):
         """Convert JSON object to string
 
         Arguments:
@@ -210,14 +210,17 @@ class JSONLib:
             - indent: indent level for pretty-printing, see indent argument of
               python's [https://docs.python.org/3/library/json.html#json.dump|json.dump()]
               for details
+            - ensure_ascii: if True (default), escape all non-ASCII characters.
+              If False, non-ASCII characters are preserved in the output.
 
         Return new json_string
 
         Examples:
         | ${json_str}=  |  Convert JSON To String | ${json_obj} |
         | ${json_str}=  |  Convert JSON To String | ${json_obj} | indent=${4} |
+        | ${json_str}=  |  Convert JSON To String | ${json_obj} | indent=${4} | ensure_ascii=False |
         """
-        return json.dumps(json_object, indent=indent)
+        return json.dumps(json_object, indent=indent, ensure_ascii=ensure_ascii)
 
     @staticmethod
     def convert_string_to_json(json_string):

@@ -158,6 +158,49 @@ class TestJSONLib:
         assert len(json_str_as_list := json_str.split("\n")) == 45
         assert json_str_as_list[1][:4] == " " * 4
 
+    def test_convert_json_to_string_ensure_ascii_default(self):
+        """Test that ensure_ascii=True by default (escapes non-ASCII characters)"""
+        json_obj = {"test": "über"}
+        json_str = self.json_library.convert_json_to_string(json_obj)
+        # With ensure_ascii=True, ü should be escaped as \u00fc
+        assert "\\u00fc" in json_str
+        assert "über" not in json_str
+
+    def test_convert_json_to_string_ensure_ascii_true(self):
+        """Test that ensure_ascii=True explicitly escapes non-ASCII characters"""
+        json_obj = {"test": "café", "greeting": "你好"}
+        json_str = self.json_library.convert_json_to_string(json_obj, ensure_ascii=True)
+        # With ensure_ascii=True, non-ASCII characters should be escaped
+        assert "\\u00e9" in json_str  # é
+        assert "café" not in json_str
+        assert "你好" not in json_str
+
+    def test_convert_json_to_string_ensure_ascii_false(self):
+        """Test that ensure_ascii=False preserves UTF-8 characters"""
+        json_obj = {"test": "über", "greeting": "你好", "coffee": "café"}
+        json_str = self.json_library.convert_json_to_string(
+            json_obj, ensure_ascii=False
+        )
+        # With ensure_ascii=False, UTF-8 characters should be preserved
+        assert "über" in json_str
+        assert "你好" in json_str
+        assert "café" in json_str
+        # Should not have escape sequences
+        assert "\\u00fc" not in json_str
+        assert "\\u00e9" not in json_str
+
+    def test_convert_json_to_string_ensure_ascii_false_with_indent(self):
+        """Test that ensure_ascii=False works with indent parameter"""
+        json_obj = {"test": "über", "nested": {"greeting": "你好"}}
+        json_str = self.json_library.convert_json_to_string(
+            json_obj, indent=2, ensure_ascii=False
+        )
+        # With ensure_ascii=False, UTF-8 characters should be preserved
+        assert "über" in json_str
+        assert "你好" in json_str
+        # Should also be properly indented
+        assert "\n" in json_str
+
     def test_convert_string_to_json(self, json):
         json_obj = self.json_library.convert_string_to_json('{"firstName": "John"}')
         assert "firstName" in json_obj
