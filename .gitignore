@@ -20,6 +20,6 @@ red.xml
 /Results/
 
 #pipenv/virtualenv
-.venv
+.venv*
 Pipfile
 Pipfile.lock

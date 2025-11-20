@@ -36,9 +36,7 @@ def build(ctx):
 
 @task
 def uninstall(ctx):
-    ctx.run(
-        f"{sys.executable} -m pip uninstall robotframework-jsonlib -y", hide="both"
-    )
+    ctx.run(f"{sys.executable} -m pip uninstall robotframework-jsonlib -y", hide="both")
 
 
 @task(build, uninstall)
@@ -69,7 +67,7 @@ def publish(ctx):
 
 @task
 def docs(ctx):
-    ctx.run(f"{sys.executable} -m robot.libdoc JSONLib docs/JSONLib.html")
+    ctx.run(f"{sys.executable} -m robot.libdoc JSONLib docs/index.html")
 
 
 @task(install)

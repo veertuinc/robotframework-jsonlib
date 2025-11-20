@@ -207,7 +207,9 @@ class JSONLib:
 
         Arguments:
             - json_object: json as a dictionary object.
-            - indent: indent level for pretty-printing, see indent argument of python's [https://docs.python.org/3/library/json.html#json.dump|json.dump()] for details
+            - indent: indent level for pretty-printing, see indent argument of
+              python's [https://docs.python.org/3/library/json.html#json.dump|json.dump()]
+              for details
 
         Return new json_string
 

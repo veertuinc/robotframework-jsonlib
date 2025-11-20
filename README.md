@@ -19,15 +19,28 @@ JSONPath is an expression which can help to access to your JSON document. The JS
 
 This library can help you to add, get, update and delete your JSON object. So it's very useful in case that you have a very large JSON object.
 
+# Features
+
+- ✅ Load JSON from files or strings
+- ✅ Query JSON using JSONPath expressions
+- ✅ Update values in JSON objects
+- ✅ Add new objects to JSON
+- ✅ Delete objects from JSON
+- ✅ Validate JSON against schemas
+- ✅ Convert between JSON objects and strings
+- ✅ Pretty-print JSON with custom indentation
+- ✅ Support for complex nested JSON structures
+
 # Notes
 
 Please note this library is a bridge between the Robot Framework and the parser jsonpath-ng. Hence, issues related to parsing should be raised on https://github.com/h2non/jsonpath-ng
 
 Starting with version 0.4, Python2 support is dropped as Python2 reached end of life on 1st of January 2020.
 
-# Usage
+# Installation
 
-Install robotframework-jsonlib via ``pip`` command
+Install robotframework-jsonlib via ``pip``:
+
 ```bash
 pip install -U robotframework-jsonlib
 ```
@@ -54,24 +67,24 @@ pip install -U robotframework-jsonlib
 |Validate Json By Schema File | ${json_obj} | schema.json |         |           |
 
 # Documentation
-For the detail keyword documentation. Go to this following link:
 
-https://veertuinc.github.io/robotframework-jsonlib
+- **Keyword Documentation**: [https://veertuinc.github.io/robotframework-jsonlib](https://veertuinc.github.io/robotframework-jsonlib)
+- **JSONPath Syntax Examples**: [https://goessner.net/articles/JsonPath/index.html#e3](https://goessner.net/articles/JsonPath/index.html#e3)
+- **JSONPath Parser (jsonpath-ng)**: [https://github.com/h2non/jsonpath-ng](https://github.com/h2non/jsonpath-ng)
+- **GitHub Repository**: [https://github.com/veertuinc/robotframework-jsonlib](https://github.com/veertuinc/robotframework-jsonlib)
 
-For an example of JSONPath expressions. Go to this link:
+# Contributing
 
-https://goessner.net/articles/JsonPath/index.html#e3
+Contributions are welcome! Please see [DEVELOPMENT.md](DEVELOPMENT.md) for:
+- Setting up your development environment
+- Running tests and CI checks
+- Building and publishing the package
+- Coding standards and guidelines
 
-Parser: jsonpath-ng:
+# Help & Support
 
-https://github.com/h2non/jsonpath-ng
-
-This github:
-
-https://github.com/veertuinc/robotframework-jsonlib
-
-#Help & Issues
-Mention me on Twitter [@nottyo](https://twitter.com/nottyo) 
+- **Issues**: Report bugs or request features at [GitHub Issues](https://github.com/veertuinc/robotframework-jsonlib/issues)
+- **Discussions**: Ask questions at [GitHub Discussions](https://github.com/veertuinc/robotframework-jsonlib/discussions)
 
 
 

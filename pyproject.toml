@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "robotframework-jsonlib"
-version = "0.1.0"
+dynamic = ["version"]
 description = "robotframework-jsonlib is a Robot Framework test library for manipulating JSON Object. You can manipulate your JSON object using JSONPath"
 readme = "README.md"
 requires-python = ">=3.6"
-license = {text = "MIT License"}
+license = {text = "MIT"}
 authors = [
     {name = "Veertu Inc.", email = "support@veertu.com"}
 ]
@@ -17,7 +17,6 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Testing",
-    "License :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
@@ -57,6 +56,9 @@ Issues = "https://github.com/veertuinc/robotframework-jsonlib/issues"
 [tool.setuptools]
 packages = ["JSONLib"]
 include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "JSONLib.__version__.__version__"}
 
 [tool.setuptools.package-data]
 "*" = ["*"]
