@@ -21,7 +21,7 @@ def clean(_):
     shutil.rmtree(".pytest_cache", ignore_errors=True)
     shutil.rmtree("build", ignore_errors=True)
     shutil.rmtree("dist", ignore_errors=True)
-    shutil.rmtree("robotframework_jsonlibrary.egg-info", ignore_errors=True)
+    shutil.rmtree("robotframework_jsonlib.egg-info", ignore_errors=True)
     for path, _, _ in os.walk("."):
         if path.endswith("__pycache__"):
             shutil.rmtree(path, ignore_errors=True)
@@ -69,11 +69,11 @@ def publish(ctx):
 
 @task
 def docs(ctx):
-    ctx.run(f"{sys.executable} -m robot.libdoc JSONLibrary docs/JSONLibrary.html")
+    ctx.run(f"{sys.executable} -m robot.libdoc JSONLib docs/JSONLib.html")
 
 
 @task(install)
 def lint(ctx):
-    ctx.run("pylint JSONLibrary --disable=R,C,W0703,W0212,W1203")
+    ctx.run("pylint JSONLib --disable=R,C,W0703,W0212,W1203")
     uninstall(ctx)
     clean(ctx)

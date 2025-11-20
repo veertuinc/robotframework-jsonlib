@@ -7,11 +7,11 @@ import os
 import tempfile
 import pytest
 from copy import deepcopy
-from JSONLibrary import JSONLibrary
+from JSONLib import JSONLib
 
 
-class TestJSONLibrary:
-    json_library = JSONLibrary()
+class TestJSONLib:
+    json_library = JSONLib()
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
     @pytest.fixture(autouse=True)

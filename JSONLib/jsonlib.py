@@ -10,12 +10,12 @@ from jsonpath_ng import Index, Fields
 from jsonpath_ng.ext import parse as parse_ng
 from jsonpath_ng.exceptions import JsonPathParserError
 
-__author__ = "Traitanit Huangsri"
-__email__ = "traitanit.hua@gmail.com"
+__author__ = "Veertu Inc."
+__email__ = "support@veertu.com"
 
 
-class JSONLibrary:
-    """JSONLibrary is a robotframework testlibrary for manipulating JSON object (dictionary)
+class JSONLib:
+    """JSONLib is a robotframework testlibrary for manipulating JSON object (dictionary)
 
     You can get, add, update and delete your json object using JSONPath.
 
@@ -46,7 +46,7 @@ class JSONLibrary:
 
     == Example Test Cases ==
     | *** Settings ***     |
-    | Library              | JSONLibrary |
+    | Library              | JSONLib |
     |                      |
     | *** Test Cases ***   |
     | TestManipulatingJSON |

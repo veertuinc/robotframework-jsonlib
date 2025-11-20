@@ -1,10 +1,10 @@
 *** Settings ***
-Library         JSONLibrary
+Library         JSONLib
 Library         Collections
 Library         String
 Library         OperatingSystem    
 Test Setup      SetUp Test
-Default Tags    JSONLibrary
+Default Tags    JSONLib
 
 *** Keywords ***
 SetUp Test

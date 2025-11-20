@@ -1,5 +1,5 @@
 [run]
-include = JSONLibrary/*
+include = JSONLib/*
 
 [xml]
 output = tests/__out__/coverage/xml/coverage.xml

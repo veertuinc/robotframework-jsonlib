@@ -1,6 +1,6 @@
 # robotframework-jsonlib
 
-``JSONLibrary`` is a [Robot Framework](http://robotframework.org/) test library for manipulating [JSON](http://json.org/) Object. You can manipulate your JSON object using [JSONPath](http://goessner.net/articles/JsonPath/)
+``JSONLib`` is a [Robot Framework](http://robotframework.org/) test library for manipulating [JSON](http://json.org/) Object. You can manipulate your JSON object using [JSONPath](http://goessner.net/articles/JsonPath/)
 
 JSONPath is an expression which can help to access to your JSON document. The JSONPath structure is in the same way as XPath which use for accessing XML document. This is an example of JSONPath syntax.
 
@@ -36,7 +36,7 @@ pip install -U robotframework-jsonlib
 
 |\*** Settings \***|                     |                  |            |                  |
 |:----------------- |-------------------- |----------------- |----------- |----------------- |
-|Library           | JSONLibrary         |                  |            |                  |
+|Library           | JSONLib         |                  |            |                  |
 |__\*** Test Cases \***__|                     |                  |            |                  |
 |${json_obj}=      | Load Json From File | example.json     |            |                  |
 |${object_to_add}= | Create Dictionary   | country=Thailand |            |                  |
@@ -56,7 +56,7 @@ pip install -U robotframework-jsonlib
 # Documentation
 For the detail keyword documentation. Go to this following link:
 
-https://robotframework-thailand.github.io/robotframework-jsonlibrary/
+https://veertuinc.github.io/robotframework-jsonlib
 
 For an example of JSONPath expressions. Go to this link:
 
