@@ -86,7 +86,7 @@ twine check dist/*
 print_success "Package verification passed"
 
 print_info "Testing package installation..."
-pip install dist/*.whl --force-reinstall --no-deps > /dev/null 2>&1
+pip install dist/*.whl --force-reinstall > /dev/null 2>&1
 python -c "from JSONLib import JSONLib; print('✓ Package imports correctly')"
 python -c "from JSONLib.__version__ import __version__; print(f'✓ Version: {__version__}')"
 print_success "Package installation test passed"
