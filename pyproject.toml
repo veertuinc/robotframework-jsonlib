@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotframework-jsonlib"
+version = "0.5"
+description = "robotframework-jsonlib is a Robot Framework test library for manipulating JSON Object. You can manipulate your JSON object using JSONPath"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "Public Domain"}
+authors = [
+    {name = "Traitanit Huangsri", email = "traitanit.hua@gmail.com"}
+]
+keywords = ["testing", "robotframework", "json", "jsonschema", "jsonpath"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "License :: Public Domain",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: Robot Framework :: Library",
+]
+dependencies = [
+    "robotframework>=3.0",
+    "jsonpath-ng>=1.4.3",
+    "jsonschema>=2.5.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "twine",
+    "wheel",
+    "pylint",
+    "invoke",
+    "black",
+    "tox",
+    "pytest",
+    "pytest-cov",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/veertuinc/robotframework-jsonlib"
+Documentation = "https://robotframework-thailand.github.io/robotframework-jsonlibrary/"
+Repository = "https://github.com/veertuinc/robotframework-jsonlib.git"
+Issues = "https://github.com/veertuinc/robotframework-jsonlib/issues"
+
+[tool.setuptools]
+packages = ["JSONLibrary"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["*"]
+

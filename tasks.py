@@ -37,7 +37,7 @@ def build(ctx):
 @task
 def uninstall(ctx):
     ctx.run(
-        f"{sys.executable} -m pip uninstall robotframework-jsonlibrary -y", hide="both"
+        f"{sys.executable} -m pip uninstall robotframework-jsonlib -y", hide="both"
     )
 
 

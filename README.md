@@ -1,4 +1,5 @@
-# robotframework-jsonlibrary
+# robotframework-jsonlib
+
 ``JSONLibrary`` is a [Robot Framework](http://robotframework.org/) test library for manipulating [JSON](http://json.org/) Object. You can manipulate your JSON object using [JSONPath](http://goessner.net/articles/JsonPath/)
 
 JSONPath is an expression which can help to access to your JSON document. The JSONPath structure is in the same way as XPath which use for accessing XML document. This is an example of JSONPath syntax.
@@ -26,9 +27,9 @@ Starting with version 0.4, Python2 support is dropped as Python2 reached end of 
 
 # Usage
 
-Install robotframework-jsonlibrary via ``pip`` command
+Install robotframework-jsonlib via ``pip`` command
 ```bash
-pip install -U robotframework-jsonlibrary
+pip install -U robotframework-jsonlib
 ```
 
 # Example Test Case
@@ -67,7 +68,7 @@ https://github.com/h2non/jsonpath-ng
 
 This github:
 
-https://github.com/robotframework-thailand/robotframework-jsonlibrary
+https://github.com/veertuinc/robotframework-jsonlib
 
 #Help & Issues
 Mention me on Twitter [@nottyo](https://twitter.com/nottyo) 

@@ -11,16 +11,16 @@ requirements = [
 ]
 
 setup(
-    name="robotframework-jsonlibrary",
+    name="robotframework-jsonlib",
     version=version["__version__"],
-    description="robotframework-jsonlibrary is a Robot Framework "
+    description="robotframework-jsonlib is a Robot Framework "
     "test library for manipulating JSON Object. "
     "You can manipulate your JSON object using JSONPath",
     author="Traitanit Huangsri",
     author_email="traitanit.hua@gmail.com",
-    url="https://github.com/nottyo/robotframework-jsonlibrary.git",
+    url="https://github.com/veertuinc/robotframework-jsonlib.git",
     packages=["JSONLibrary"],
-    package_dir={"robotframework-jsonlibrary": "JSONLibrary"},
+    package_dir={"robotframework-jsonlib": "JSONLibrary"},
     install_requires=requirements,
     include_package_data=True,
     keywords="testing robotframework json jsonschema jsonpath",
