@@ -191,113 +191,45 @@ if [ "$VERIFY_INSTALL" = true ]; then
     echo ""
     
     # Install from TestPyPI with PyPI as fallback for dependencies
-    if pip install --index-url https://test.pypi.org/simple/ \
-                   --extra-index-url https://pypi.org/simple/ \
-                   robotframework-jsonlib; then
-        echo ""
-        print_success "Installation successful"
-        
+    pip install robotframework jsonpath-ng jsonschema > /dev/null 2>&1
+    while ! pip install --index-url https://test.pypi.org/simple/ robotframework-jsonlib==$VERSION; do
+        print_info "Version not found yet in https://test.pypi.org/simple, retrying..."
+        sleep 10
+    done
+    echo ""
+    print_success "Installation successful"
+    
     print_info "Testing Python import..."
     python -c "from JSONLib import JSONLib; print('✓ Package imports correctly')"
     python -c "from JSONLib.__version__ import __version__; print(f'✓ Version: {__version__}')"
     print_success "Python import test passed"
     
     echo ""
-    print_info "Creating Robot Framework test in /tmp..."
+    print_info "Preparing acceptance tests in /tmp..."
     
     # Create test directory
     TEST_DIR="/tmp/robotframework_jsonlib_testpypi_verify_$$"
-    mkdir -p "$TEST_DIR"
+    mkdir -p "$TEST_DIR/tests/json"
+    mkdir -p "$TEST_DIR/acceptance"
     
-    # Create test JSON file
-    cat > "$TEST_DIR/test.json" << 'EOF'
-{
-    "name": "TestPyPI Verification",
-    "version": "1.0.0",
-    "features": ["json", "jsonpath", "jsonschema"],
-    "metadata": {
-        "author": "Test User",
-        "verified": false
-    }
-}
-EOF
+    # Copy acceptance tests
+    cp "$SCRIPT_DIR/acceptance/JSONLib.robot" "$TEST_DIR/acceptance/"
+    print_success "Copied acceptance tests"
     
-    # Create JSON schema file
-    cat > "$TEST_DIR/test_schema.json" << 'EOF'
-{
-    "type": "object",
-    "properties": {
-        "name": {"type": "string"},
-        "version": {"type": "string"},
-        "features": {"type": "array"},
-        "metadata": {"type": "object"}
-    },
-    "required": ["name", "version"]
-}
-EOF
-    
-    # Create Robot Framework test
-    cat > "$TEST_DIR/verify_jsonlib.robot" << 'EOF'
-*** Settings ***
-Library    JSONLib
-
-*** Test Cases ***
-Verify JSON Loading
-    [Documentation]    Test loading JSON from file
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    Should Not Be Equal    ${json}    ${None}
-    Log    ✓ JSON loaded successfully
-
-Verify Get Value From JSON
-    [Documentation]    Test getting values using JSONPath
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    ${name}=    Get Value From Json    ${json}    $.name
-    Should Be Equal As Strings    ${name[0]}    TestPyPI Verification
-    ${features}=    Get Value From Json    ${json}    $.features
-    Length Should Be    ${features[0]}    3
-    Log    ✓ Get value works correctly
-
-Verify Update Value
-    [Documentation]    Test updating JSON values
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    ${json}=    Update Value To Json    ${json}    $.metadata.verified    ${True}
-    ${verified}=    Get Value From Json    ${json}    $.metadata.verified
-    Should Be True    ${verified[0]}
-    Log    ✓ Update value works correctly
-
-Verify Add Object
-    [Documentation]    Test adding objects to JSON
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    ${new_data}=    Create Dictionary    test=success    timestamp=2024-01-01
-    ${json}=    Add Object To Json    ${json}    $.metadata    ${new_data}
-    ${test_value}=    Get Value From Json    ${json}    $.metadata.test
-    Should Be Equal As Strings    ${test_value[0]}    success
-    Log    ✓ Add object works correctly
-
-Verify JSON Schema Validation
-    [Documentation]    Test JSON schema validation
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    Validate Json By Schema File    ${json}    ${CURDIR}/test_schema.json
-    Log    ✓ Schema validation works correctly
-
-Verify Convert JSON To String
-    [Documentation]    Test converting JSON to string
-    ${json}=    Load Json From File    ${CURDIR}/test.json
-    ${json_string}=    Convert Json To String    ${json}
-    Should Contain    ${json_string}    TestPyPI Verification
-    Log    ✓ JSON to string conversion works correctly
-EOF
-    
-    print_success "Test files created in $TEST_DIR"
+    # Copy test JSON files (required by acceptance tests)
+    cp "$SCRIPT_DIR/tests/json/example.json" "$TEST_DIR/tests/json/"
+    cp "$SCRIPT_DIR/tests/json/example_schema.json" "$TEST_DIR/tests/json/"
+    cp "$SCRIPT_DIR/tests/json/broken_schema.json" "$TEST_DIR/tests/json/"
+    print_success "Copied test JSON files"
     
     echo ""
-    print_info "Running Robot Framework test..."
+    print_info "Running acceptance tests with Robot Framework..."
     echo ""
     
-    # Run Robot Framework test
-    if robot -d "$TEST_DIR/results" "$TEST_DIR/verify_jsonlib.robot"; then
+    # Run acceptance tests
+    if robot -d "$TEST_DIR/results" "$TEST_DIR/acceptance/JSONLib.robot"; then
         echo ""
-        print_success "Robot Framework test passed!"
+        print_success "Acceptance tests passed!"
         
         echo ""
         echo -e "${GREEN}Test Results:${NC}"
@@ -310,10 +242,10 @@ EOF
         
         # Show test summary
         if [ -f "$TEST_DIR/results/output.xml" ]; then
-            echo -e "${GREEN}All Robot Framework tests passed successfully!${NC}"
+            echo -e "${GREEN}All acceptance tests passed successfully!${NC}"
         fi
     else
-        print_error "Robot Framework test failed!"
+        print_error "Acceptance tests failed!"
         echo ""
         echo -e "${YELLOW}Test output available at:${NC}"
         echo "  Report: $TEST_DIR/results/report.html"
