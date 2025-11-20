@@ -23,6 +23,18 @@ TestAddJSONObjectByJSONPath
     Dictionary Should Contain Key    ${json_obj2}    friends
     Dictionaries Should Be Equal    ${json_obj_orignal}      ${json_obj_input}
 
+TestAddObjectToNonExistentPath
+    [Documentation]  When adding to a non-existent path, the entire object becomes the value.
+    ...              For example, adding {city: Bangkok} to $.location creates {location: {city: Bangkok}}.
+    ...              This is the expected behavior - the object is nested under the new field.
+    ${location_data}=    Create Dictionary    city=Bangkok    country=Thailand
+    ${json_with_location}=    Add Object To Json     ${json_obj_input}    $.location    ${location_data}
+    # The entire location_data object becomes the value of the new 'location' field
+    Dictionary Should Contain Key    ${json_with_location}    location
+    Dictionaries Should Be Equal    ${json_with_location['location']}    ${location_data}
+    # Verify original data is preserved
+    Dictionary Should Contain Key    ${json_with_location}    firstName
+    
 TestGetValueByJSONPath
     [Documentation]  Get some json object using JSONPath
     ${values}=     Get Value From Json    ${json_obj_input}    $..address.postalCode

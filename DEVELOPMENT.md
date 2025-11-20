@@ -200,13 +200,10 @@ This is included in `./run_ci_checks.sh`.
 ## Release Process
 
 1. Update version in `JSONLib/__version__.py`
-2. Update CHANGELOG (if maintained)
-3. Run full CI checks: `./run_ci_checks.sh`
-4. Build package: `./run_build_only.sh`
-5. Test on TestPyPI: `./run_testpypi_upload.sh --verify`
-6. Publish to PyPI: `twine upload dist/*`
-7. Create GitHub release with tag
-8. Update documentation site if needed
+2. Run full CI checks: `./run_ci_checks.sh`
+3. Test on TestPyPI: `./run_testpypi_upload.sh --verify`
+4. Publish to PyPI: `twine upload dist/*`
+5. Create GitHub release with tag
 
 ## Help & Support
 

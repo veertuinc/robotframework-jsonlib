@@ -108,9 +108,30 @@ class JSONLib:
 
         Return new json object.
 
+        *Behavior:*
+
+        - If the json_path exists and points to a dictionary: the object_to_add keys are merged into it
+        - If the json_path exists and points to a list: the object_to_add is appended to the list
+        - If the json_path does NOT exist: a new field is created with object_to_add as its value
+
+        *Important Note:*
+
+        When creating a new field (non-existent path), the entire object_to_add becomes the value.
+        This means if you add {key1: value1} to $.key1, the result will be {key1: {key1: value1}}.
+        To avoid this nesting, add to an existing path or use a different field name.
+
         Examples:
+        | # Adding to existing path (merges keys) |
+        | ${json}=  | Convert String To Json | {"address": {"street": "Main St"}} |
         | ${dict}=  | Create Dictionary    | latitude=13.1234 | longitude=130.1234 |
-        | ${json}=  |  Add Object To Json  | ${json}          | $..address         |  ${dict} |
+        | ${json}=  | Add Object To Json   | ${json}          | $..address         | ${dict} |
+        | # Result: {"address": {"street": "Main St", "latitude": "13.1234", "longitude": "130.1234"}} |
+        |           |                      |                  |                    |                    |
+        | # Adding to non-existent path (creates new nested object) |
+        | ${json}=  | Convert String To Json | {"name": "John"} |
+        | ${dict}=  | Create Dictionary    | city=Bangkok |
+        | ${json}=  | Add Object To Json   | ${json}          | $.location         | ${dict} |
+        | # Result: {"name": "John", "location": {"city": "Bangkok"}} |
         """
         json_path_expr = self._parse(json_path)
         json_object_cpy = deepcopy(json_object)
