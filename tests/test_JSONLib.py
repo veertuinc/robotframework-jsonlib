@@ -241,35 +241,33 @@ class TestJSONLib:
 
     def test_add_object_to_json_issue_58(self):
         """Test for issue #58: add_object_to_json wraps entire object when path doesn't exist
-        
-        When adding an object to a non-existent path where the path name matches a key 
+
+        When adding an object to a non-existent path where the path name matches a key
         in the object, the current implementation adds the entire object as a nested value.
-        
+
         For example, when adding {key1: value1} to $.key1:
         - Current behavior: {key1: {key1: value1}}
         - The reporter suggests: {key1: value1} by using object_to_add[child_name]
-        
+
         This test reproduces the issue to confirm the bug exists.
         """
         # Test case from issue #58
         # When the field name (key1) matches a key in the object being added
         json_obj = {"existing": "data"}
         data_to_add = {"key1": "value1"}
-        
-        result = self.json_library.add_object_to_json(
-            json_obj, "$.key1", data_to_add
-        )
-        
+
+        result = self.json_library.add_object_to_json(json_obj, "$.key1", data_to_add)
+
         # Current behavior: creates {key1: {key1: value1}}
         assert result.get("key1") == data_to_add
         assert result.get("key1") == {"key1": "value1"}
-        
+
         # This demonstrates the nesting issue - key1 contains the entire object
-        print(f"\nIssue #58 reproduced:")
+        print("\nIssue #58 reproduced:")
         print(f"Added {data_to_add} to path $.key1")
         print(f"Result: {result}")
         print(f"Value at key1: {result.get('key1')}")
-        
+
         # Test case 2: When field name doesn't match keys in object
         # This works as expected - creates {myField: {key1: value1}}
         json_obj2 = {"existing": "data"}
@@ -277,7 +275,7 @@ class TestJSONLib:
             json_obj2, "$.myField", data_to_add
         )
         assert result2.get("myField") == data_to_add
-        
+
         # Test case 3: Multiple keys scenario
         json_obj3 = {"existing": "data"}
         data_to_add3 = {"key1": "value1", "key2": "value2"}
@@ -286,7 +284,7 @@ class TestJSONLib:
         )
         # Current: {key1: {key1: value1, key2: value2}}
         assert result3.get("key1") == {"key1": "value1", "key2": "value2"}
-        
+
         # The issue is: should it extract just result["key1"]["key1"]?
         # That would be: {key1: value1}
         # But that only works when child_name exists in the object!
