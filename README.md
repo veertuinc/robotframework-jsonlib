@@ -2,6 +2,8 @@
 
 ``JSONLib`` is a [Robot Framework](http://robotframework.org/) test library for manipulating [JSON](http://json.org/) Object. You can manipulate your JSON object using [JSONPath](http://goessner.net/articles/JsonPath/)
 
+It is a continuation of the original [robotframework-jsonlib](https://github.com/robotframework-thailand/robotframework-jsonlibrary) library which is no longer maintained.
+
 JSONPath is an expression which can help to access to your JSON document. The JSONPath structure is in the same way as XPath which use for accessing XML document. This is an example of JSONPath syntax.
 
 | JSONPath | Description |
