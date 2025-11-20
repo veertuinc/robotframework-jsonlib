@@ -1,8 +1,6 @@
 # robotframework-jsonlib
 
-[![Test and Lint](https://github.com/veertuinc/robotframework-jsonlib/actions/workflows/python-app.yml/badge.svg)](https://github.com/veertuinc/robotframework-jsonlib/actions/workflows/python-app.yml)
-
-[![PyPi](https://img.shields.io/badge/pypi-%23ececec.svg?style=for-the-badge&logo=pypi&logoColor=1f73b7)](https://pypi.org/project/robotframework-jsonlib/)
+[![Test and Lint](https://github.com/veertuinc/robotframework-jsonlib/actions/workflows/python-app.yml/badge.svg)](https://github.com/veertuinc/robotframework-jsonlib/actions/workflows/python-app.yml) [![PyPi](https://img.shields.io/badge/pypi-%23ececec.svg?style=for-the-badge&logo=pypi&logoColor=1f73b7)](https://pypi.org/project/robotframework-jsonlib/)
 
 ``JSONLib`` is a [Robot Framework](http://robotframework.org/) test library for manipulating [JSON](http://json.org/) Object. You can manipulate your JSON object using [JSONPath](http://goessner.net/articles/JsonPath/)
 
