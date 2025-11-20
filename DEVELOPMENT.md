@@ -9,7 +9,8 @@ This guide is for contributors and maintainers of `robotframework-jsonlib`.
 | `run_ci_checks.sh` | Full CI validation (linting, tests, build) | `./run_ci_checks.sh` |
 | `run_tests_only.sh` | Fast test iteration | `./run_tests_only.sh` |
 | `run_build_only.sh` | Build and verify package | `./run_build_only.sh` |
-| `run_testpypi_upload.sh` | Upload to TestPyPI (not used in CI) | `./run_testpypi_upload.sh` |
+| `run_testpypi_upload.sh` | Upload to TestPyPI for testing | `./run_testpypi_upload.sh` |
+| `run_pypi_upload.sh` | Upload to production PyPI | `./run_pypi_upload.sh` |
 
 All development scripts automatically create and use a Python virtual environment (`.venv`) to isolate dependencies.
 
@@ -103,11 +104,17 @@ This script will:
 
 ### Publishing to Production PyPI
 
-After testing with TestPyPI, publish to production PyPI:
+After testing with TestPyPI, publish to production PyPI using the upload script:
 
 ```bash
-twine upload dist/*
+./run_pypi_upload.sh
 ```
+
+This script will:
+- Build the package (if needed)
+- Prompt for confirmation before uploading
+- Upload to production PyPI
+- Provide next steps and installation instructions
 
 **Prerequisites:**
 1. Register at [https://pypi.org/account/register/](https://pypi.org/account/register/)
@@ -118,6 +125,14 @@ twine upload dist/*
    username = __token__
    password = <your PyPI API Token>
    ```
+
+**Options:**
+- `--no-build` - Skip building, use existing dist/ files
+
+**Alternative:** You can also use twine directly:
+```bash
+twine upload dist/*
+```
 
 ## Virtual Environment
 
