@@ -98,12 +98,12 @@ print_section "SECTION 3: Linting with flake8"
 
 print_info "Running flake8 (critical errors)..."
 # Stop the build if there are Python syntax errors or undefined names
-flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv,build,dist
+flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv*,build,dist
 print_success "flake8 critical checks passed"
 
 print_info "Running flake8 (warnings)..."
 # Exit-zero treats all errors as warnings
-flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv,build,dist
+flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv*,build,dist
 print_success "flake8 warnings check completed"
 
 # ================================
